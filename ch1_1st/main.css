@@ -1,1 +1,6 @@
 /* 아직은 아무것도 없어오 */
+#mainCanvas{
+  width: 400px;
+  height: 400px;
+  border: solid 1px black;
+}
