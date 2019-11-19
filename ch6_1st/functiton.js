@@ -126,8 +126,63 @@ const o = {
 o.greetBackwards();
 
 //////////////////////////////////////////
-//함수 표현식과 익명함수
-//이해하기 어렵당 ㅎㅎ
 
 
+//화살표 표기법
+
+const f1 = function() {return "hello!";}
+const f1 = ()=>"hello";
+
+const f2 = function(name) {return `hello ${name}!`;}
+const f2 = name => `hello ${name}!`; 
+
+const f3 = function(a,b) {return a+b;}
+const f3 = (a,b) => a+b;
+//단순히 function의 문법을 줄이는 수준에서만 작동하는게 아니라
+//함수형 프로그래밍을 js에 적용하는데 상당히 중요한 역할을 하는 표기법이다 ! => 앞으로 이 표기법으로 코딩하는것을 버릇하자
+
+const o = {
+    name: 'hana',
+    greetBackwards: function(){
+        const getReverseName = () => {
+            let nameBackwards = '';
+            for (let i = this.name.length - 1; i >= 0; i--){
+                nameBackwards += this.name[i];
+            }
+            return nameBackwards;
+        };
+        return `${getReverseName()} si eman ym ,olleH`;
+    }
+};
+//위의 this 키워드를 설명할때 나온 예제이다. 위에서는 o의 프로퍼티 안의 내부함수에서 this가 제대로 동작하지 않았지만
+//함수의 표기법을 => 로 바꾸는것 만으로도 this 키워드가 길을 잃지 않고 정상적으로 작동하게 된다. (짱신기)
+
+
+
+//  call & apply & bind
+
+const moti = { name:"Moti"};
+const taem = { name:"Taem"};
+
+function greet(){return `hello, I'm ${this.name}!`;}  //위에서 배웠던 화살표표기법을 사용하면 동작 안함
+greet();
+greet.call(moti);
+greet.call(taem);
+
+
+
+function update(birthYear, occupation) {
+    this.birthYear = birthYear;
+    this.occupation = occupation;
+}
+update.call(moti,1949,'singer');
+update.call(taem,1994,'streamer');
+
+update.apply(moti,[1999,"dancer"]);
+update.apply(taem,[2005,"student"]);
+
+//call과 apply의 경우 값을 입력받는 형태만 다르고 그 동작은 같다.
+//apply의 경우 값을 배열의 형태로 전달하는 특성때문에 배열단위의 데이터 처리에 유용하다.
+
+const updateMoti = update.bind(moti);
 
